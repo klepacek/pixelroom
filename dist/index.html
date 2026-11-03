@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#305cf5" />
+    <meta
+      name="description"
+      content="Convert, compress, crop and edit images locally. A private image workspace with batch exports."
+    />
+    <title>Pixelroom — Your images, in good shape</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="./"
+        ><span class="brand-mark">▧</span> pixelroom<span class="brand-dot"
+          >.</span
+        ></a
+      ><span class="header-caption">A little room for your images</span
+      ><button id="helpButton" class="quiet">
+        How it works <span>?</span>
+      </button>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="side-label">Your toolkit</div>
+        <nav id="tools" aria-label="Image tools"></nav>
+        <div class="privacy">
+          <span class="privacy-icon">◈</span><strong>Yours stays yours.</strong>
+          <p>Images are processed on your device. No uploads. No accounts.</p>
+          <span class="local-dot">Processing locally</span>
+        </div>
+        <div class="sidebar-bottom">Made for the everyday pixels.</div>
+      </aside>
+      <main>
+        <div class="page-heading">
+          <div>
+            <div class="breadcrumb">
+              Workspace <span>/</span> <span id="crumb">Convert images</span>
+            </div>
+            <h1 id="title">New format.<br />Same great image.</h1>
+            <p id="subtitle">
+              Give your images the format they need. Keep every detail.
+            </p>
+          </div>
+          <span class="workspace-badge"
+            >✦ &nbsp; Free, private, on your device</span
+          >
+        </div>
+        <div class="workspace">
+          <section class="stage-section">
+            <div class="stage-toolbar">
+              <div>
+                <span class="status-dot"></span>
+                <strong id="imageLabel">Your canvas awaits</strong>
+              </div>
+              <div class="view-buttons">
+                <button id="compare" class="quiet" disabled>
+                  Hold to compare</button
+                ><button id="fit" class="quiet">Fit</button>
+              </div>
+            </div>
+            <div id="stage" class="stage">
+              <div id="empty" class="empty">
+                <div class="file-art"><span>▧</span><i>+</i></div>
+                <h2>Good things start with an image.</h2>
+                <p>Drop your images here, or pick them from your device.</p>
+                <button id="browse" class="primary">＋ Choose images</button
+                ><small
+                  >JPEG, PNG, WebP, GIF, BMP, SVG, AVIF*<br />Up to 25 files ·
+                  30 MB each · 40 MP per image</small
+                ><button id="demo" class="text-button">
+                  Just exploring? Try a sample
+                </button>
+              </div>
+              <canvas
+                id="preview"
+                hidden
+                aria-label="Edited image preview"
+              ></canvas>
+              <div id="cropOverlay" hidden></div>
+              <span id="previewTag" hidden>Edited preview</span>
+            </div>
+            <div class="stage-footer">
+              <span id="imageStats">A fresh perspective is one image away.</span
+              ><span id="outputStats">100% local</span>
+            </div>
+            <div class="queue-heading">
+              <strong>Image tray <span id="count">0</span></strong>
+              <div>
+                <button id="add" class="quiet">＋ Add images</button
+                ><button id="clear" class="quiet">Clear</button>
+              </div>
+            </div>
+            <div id="queue" class="queue">
+              <p>Your images will appear here. Add a few to work in batches.</p>
+            </div>
+          </section>
+          <aside class="settings">
+            <div class="settings-heading">
+              <h2 id="panelTitle">Export settings</h2>
+              <span>✧</span>
+            </div>
+            <div id="controls"></div>
+            <div class="export-summary">
+              <div>
+                <span>Selected image</span><strong id="summarySize">—</strong>
+              </div>
+              <div>
+                <span>Metadata</span
+                ><strong class="safe">Removed on export</strong>
+              </div>
+            </div>
+            <button id="export" class="primary export" disabled>
+              Export image <span>↧</span></button
+            ><button id="batch" class="secondary" disabled>
+              Export all images
+            </button>
+            <p class="export-note">Your original files stay untouched.</p>
+          </aside>
+        </div>
+        <div class="bottom-note">
+          <span>◈</span>
+          <div>
+            <strong>Small files. Big possibilities.</strong>
+            <p>
+              Built for quick fixes, careful edits, and everything in between.
+            </p>
+          </div>
+          <button id="reset" class="quiet">Reset adjustments ↺</button>
+        </div>
+        <div id="message" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+    <input id="fileInput" type="file" accept="image/*" multiple hidden />
+    <dialog id="help">
+      <button id="closeHelp" class="close" aria-label="Close help">×</button>
+      <h2>A simpler image workflow.</h2>
+      <p>
+        Add images, choose a tool, and export. Every tool shares the same
+        adjustments, so you can crop, resize, and compress in one export.
+      </p>
+      <h3>Formats & privacy</h3>
+      <p>
+        Export PNG, JPEG, or WebP. Input support depends on your browser. GIF
+        and animated WebP exports use a single still frame. SVG files are
+        rasterized. HEIC and RAW are not supported.
+      </p>
+      <p>
+        Exports are newly encoded images, so source EXIF, GPS, and other
+        embedded metadata are removed. Output dimensions are retained. Color
+        profiles and original animation are not preserved.
+      </p>
+      <h3>Batch exports</h3>
+      <p>
+        Format and adjustment settings apply to every image. Crops and resize
+        limits are stored per image. Batch downloads happen one at a time; your
+        browser may ask to allow multiple downloads.
+      </p>
+      <p>
+        Shortcut: Ctrl/⌘ + O to add images. Drag across an image in Crop to
+        select a region. Use the numeric crop fields for precision.
+      </p>
+      <button id="helpDone" class="primary">Got it</button>
+    </dialog>
+  </body>
+</html>
